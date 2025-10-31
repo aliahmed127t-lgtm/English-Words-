@@ -6,79 +6,6 @@
 <title>قاموس كلمات انجليزي - عربي</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap" rel="stylesheet">
  <link rel="icon" type="image/png" href="favicon.png">
-<script>
-// بناء قاموس سريع من الجدول
-const dictionary = {};
-document.querySelectorAll("#dictionaryTable tr").forEach((row, i) => {
-  if (i === 0) return;
-  const eng = (row.cells[0]?.innerText || '').trim().toLowerCase();
-  const ar = (row.cells[1]?.innerText || '').trim();
-  if (eng) dictionary[eng] = ar;
-  if (ar) dictionary[ar] = row.cells[0]?.innerText || '';
-});
-const arabicInput = document.getElementById('arabicInput');
-const englishInput = document.getElementById('englishInput');
-const arabicLoading = document.getElementById('arabicLoading');
-const englishLoading = document.getElementById('englishLoading');
-let lastEdited = null;
-async function translate(text, from, to) {
-  const txt = text.trim();
-  if (!txt) return "";
-  if (from === 'ar' && dictionary[txt]) return dictionary[txt];
-  if (from === 'en' && dictionary[txt.toLowerCase()]) return dictionary[txt.toLowerCase()];
-  // بحث جزئي
-  if (from === 'ar') {
-    for (const [k, v] of Object.entries(dictionary)) {
-      if (k === txt) continue;
-      if (txt.includes(k)) return dictionary[k];
-    }
-  } else {
-    for (const [k, v] of Object.entries(dictionary)) {
-      if (k === txt.toLowerCase()) continue;
-      if (txt.toLowerCase().includes(k)) return dictionary[k];
-    }
-  }
-  // إذا لم يجد في القاموس، استخدم API
-  try {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.responseData?.translatedText || "";
-  } catch {
-    return '';
-  }
-}
-arabicInput.addEventListener('input', async () => {
-  lastEdited = 'arabic';
-  const text = arabicInput.value;
-  if (!text.trim()) {
-    englishInput.value = '';
-    arabicLoading.textContent = '';
-    return;
-  }
-  englishLoading.textContent = 'Translating...';
-  const translated = await translate(text, 'ar', 'en');
-  if (lastEdited === 'arabic') {
-    englishInput.value = translated;
-    englishLoading.textContent = '';
-  }
-});
-englishInput.addEventListener('input', async () => {
-  lastEdited = 'english';
-  const text = englishInput.value;
-  if (!text.trim()) {
-    arabicInput.value = '';
-    englishLoading.textContent = '';
-    return;
-  }
-  arabicLoading.textContent = '...جاري الترجمة';
-  const translated = await translate(text, 'en', 'ar');
-  if (lastEdited === 'english') {
-    arabicInput.value = translated;
-    arabicLoading.textContent = '';
-  }
-});
- </script>
  <style>
   * {
     box-sizing: border-box;
@@ -161,9 +88,9 @@ englishInput.addEventListener('input', async () => {
     font-weight: bold;
     background: linear-gradient(
       to right,
-      #808080 20%,   /* رمادي */
-      #ffffff 40%,   /* لمعة بيضاء */
-      #808080 60%    /* رمادي */
+      #808080 20%,
+      #ffffff 70%,
+      #808080 60%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -179,21 +106,6 @@ englishInput.addEventListener('input', async () => {
 </head>
 <body>
   <h1>قاموس كلمات انجليزي (1000 Words)</h1>
- <!-- بدء قسم الترجمة الفورية -->
-<div class="translation-section" style="display: flex; justify-content: center; align-items: flex-start; gap: 10px; margin: 20px auto 10px; flex-wrap: wrap; max-width: 480px;">
-  <div style="flex: 1; min-width: 140px; max-width: 200px; background: #fff; border-radius: 6px; box-shadow: 0 1px 2px #bbb2; border: 1px solid #e0e0e0; padding: 6px 6px 4px 6px; text-align: right;">
-    <label for="arabicInput"><b>اكتب بالعربية:</b></label>
-    <textarea id="arabicInput" dir="rtl" placeholder="اكتب كلمة أو جملة بالعربية..." style="width:100%;min-height:36px;font-size:1rem;border-radius:4px;border:1px solid #ccc;padding:4px;font-family:'Cairo',Arial,sans-serif;resize:vertical;box-sizing:border-box;direction:rtl;"></textarea>
-    <span id="arabicLoading" style="font-size:0.9em;color:#888;min-height:12px;display:block"></span>
-  </div>
-  <div style="flex: 1; min-width: 140px; max-width: 200px; background: #fff; border-radius: 6px; box-shadow: 0 1px 2px #bbb2; border: 1px solid #e0e0e0; padding: 6px 6px 4px 6px; text-align: right;">
-    <label for="englishInput"><b>Type in English:</b></label>
-    <textarea id="englishInput" dir="ltr" placeholder="Type a word or sentence in English..." style="width:100%;min-height:36px;font-size:1rem;border-radius:4px;border:1px solid #ccc;padding:4px;font-family:'Cairo',Arial,sans-serif;resize:vertical;box-sizing:border-box;direction:ltr;"></textarea>
-    <span id="englishLoading" style="font-size:0.9em;color:#888;min-height:12px;display:block"></span>
-  </div>
-</div>
-<!-- نهاية قسم الترجمة الفورية -->
-
   <div class="table-container">
     <table id="dictionaryTable">
       <tr><th>English</th><th>عربي</th></tr>
@@ -627,6 +539,7 @@ englishInput.addEventListener('input', async () => {
  </footer>
 </body>
   </html>
+
 
 
 
