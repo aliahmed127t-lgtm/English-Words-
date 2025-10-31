@@ -3,31 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>قاموس إنجليزي - عربي</title>
+<title>قاموس كلمات انجليزي - عربي</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap" rel="stylesheet">
 <style>
+  * {
+    box-sizing: border-box;
+  }
   body {
     font-family: 'Cairo', sans-serif;
     background: #f4f4f4;
     color: #222;
-    text-align: center;
     margin: 0;
     padding: 0;
+    text-align: center;
   }
 
   h1 {
     margin-top: 20px;
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3vw, 2rem);
   }
 
-  /* مربع البحث */
   #searchBox {
-    width: 80%;
+    width: 90%;
     max-width: 400px;
-    padding: 10px;
+    padding: 12px;
     margin: 15px auto;
     border: 2px solid #333;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
@@ -40,79 +42,81 @@
 
   .table-container {
     width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     overflow-x: auto;
-    margin-top: 10px;
+    padding: 10px;
   }
 
   table {
-    margin: auto;
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
-    background: white;
-    border-radius: 10px;
+    background: #fff;
+    border-radius: 12px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    min-width: 300px;
+    overflow: hidden;
   }
 
   th, td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
     font-size: 1rem;
     white-space: nowrap;
+    text-align: center;
   }
 
   th {
     background: #333;
-    color: white;
+    color: #fff;
+    font-size: 1.1rem;
   }
 
   tr:hover {
-    background: #f0f0f0;
+    background: #f7f7f7;
   }
 
-  /* === تحسين العرض على الجوال === */
+  /* --- ØªØ­Ø³ÙŠÙ† Ø§Ù„Ø¹Ø±Ø¶ Ø¹Ù„Ù‰ Ø§Ù„Ù…ÙˆØ¨Ø§ÙŠÙ„ --- */
   @media (max-width: 768px) {
     h1 {
       font-size: 1.4rem;
-      margin-top: 15px;
-    }
-
-    #searchBox {
-      width: 90%;
-      font-size: 0.9rem;
+      margin-top: 10px;
     }
 
     th, td {
-      padding: 8px;
       font-size: 0.9rem;
+      padding: 10px 6px;
     }
 
-    table {
-      width: 100%;
+    #searchBox {
+      font-size: 0.9rem;
     }
   }
 
   @media (max-width: 480px) {
     th, td {
-      padding: 6px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      padding: 8px 4px;
     }
+
     h1 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+    }
+
+    #searchBox {
+      width: 95%;
     }
   }
 </style>
 </head>
 <body>
-  <h1>قاموس إنجليزي - عربي (1000 كلمة)</h1>
+  <h1>قاموس كلمات انجليزي (1000 Words)</h1>
 
-  <!-- مربع البحث -->
-  <input type="text" id="searchBox" placeholder="ابحث عن كلمة...">
+  <input type="text" id="searchBox" placeholder="ابـحث عن الكلمه ...">
 
   <div class="table-container">
     <table id="dictionaryTable">
-      <tr><th>English</th><th>العربية</th></tr>
-<tr><td>Serene</td><td>هادئ</td></tr>
+      <tr><th>English</th><th>عربي</th></tr>
+      <tr><td>Serene</td><td>هادئ</td></tr>
 <tr><td>Lucid</td><td>واضح</td></tr>
 <tr><td>Vivid</td><td>حيّ</td></tr>
 <tr><td>Tranquil</td><td>هادئ</td></tr>
@@ -537,25 +541,5 @@
 <tr><td>Upgrade</td><td>ترقية</td></tr>
     </table>
   </div>
-
-  <script>
-    // كود البحث الحي
-    const searchBox = document.getElementById('searchBox');
-    const table = document.getElementById('dictionaryTable');
-    const rows = table.getElementsByTagName('tr');
-
-    searchBox.addEventListener('keyup', function() {
-      const query = this.value.toLowerCase();
-      for (let i = 1; i < rows.length; i++) {
-        const english = rows[i].cells[0].textContent.toLowerCase();
-        const arabic = rows[i].cells[1].textContent.toLowerCase();
-        if (english.includes(query) || arabic.includes(query)) {
-          rows[i].style.display = '';
-        } else {
-          rows[i].style.display = 'none';
-        }
-      }
-    });
-  </script>
 </body>
-</html>
+  </html>
