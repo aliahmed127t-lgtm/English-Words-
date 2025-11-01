@@ -5,36 +5,1009 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>قاموس كلمات انجليزي - عربي</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap" rel="stylesheet">
- <link rel="icon" type="image/png" href="favicon.png">
- <style>
-  * {
-    box-sizing: border-box;
-  }
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  * { box-sizing: border-box; }
+
   body {
     font-family: 'Cairo', sans-serif;
     background: #f4f4f4;
     color: #222;
     margin: 0;
     padding: 0;
-    text-align: center;
   }
 
-  h1 {
-    margin-top: 20px;
-    font-size: clamp(1.3rem, 3vw, 2rem);
+  /* 🌟 الشريط العلوي (Navbar) */
+  .navbar {
+    width: 100%;
+    background: linear-gradient(135deg, #000, #333);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
- 
+
+  .navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  /* ✨ تأثير تحت الكلمة */
+  .navbar a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    bottom: -5px;
+    right: 0;
+    background: #00bcd4;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+  }
+
+  .navbar a:hover::after {
+    width: 100%;
+  }
+
+  .navbar a:hover {
+    color: #00bcd4;
+    transform: scale(1.05);
+  }
+
+  /* 🖤 تنسيق العنوان */
+  h1 {
+    margin-top: 25px;
+    text-align: center;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+
+  /* 🎯 البحث في المنتصف */
+  .search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+  }
+
+  .search-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .search-icon {
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .search-icon:hover {
+    transform: scale(1.1);
+    background: #111;
+  }
+
+  #searchBox {
+    width: 220px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    background: transparent;
+  }
+
+  #searchBox::placeholder {
+    color: #999;
+  }
+
   .table-container {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
     overflow-x: auto;
     padding: 10px;
+    text-align: center;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  th {
+    background: #333;
+    color: #fff;
+    font-size: 1.1rem;
+  }
+
+  tr:hover {
+    background: #f7f7f7;
+  }
+
+  @media (max-width: 768px) {
+    .navbar { gap: 20px; padding: 10px 0; }
+    .navbar a { font-size: 1rem; }
+    #searchBox { width: 160px; }
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(to right, #808080 20%, #ffffff 70%, #808080 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 2s linear infinite;
+    background-size: 200% auto;
+    text-align: center;
+  }
+
+  @keyframes shine {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 🚀 الشريط العلوي -->
+  <div class="navbar">
+    <a href="#words">الكلمات</a>
+    <a href="#contact">التواصل</a>
+  </div>
+
+  <h1>قاموس كلمات انجليزي (1000 Words)</h1>
+
+  <!-- 🖤 مربع البحث -->
+  <div class="search-wrapper">
+    <div class="search-container">
+      <button class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 
+          3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242.656a5.5 
+          5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+        </svg>
+      </button>
+      <input type="text" id="searchBox" placeholder="ابحث هنا...">
+    </div>
+  </div>
+
+  <div id="words" class="table-container">
+    <table id="dictionaryTable">
+      <tr><th>English</th><th>عربي</th></tr>
+      <tr><td>Lucid</td><td>واضح</td></tr>
+
+<tr><td>Vivid</td><td>حيّ</td></tr>
+
+<tr><td>Tranquil</td><td>هادئ</td></tr>
+
+<tr><td>Grace</td><td>نعمة</td></tr>
+
+<tr><td>Charm</td><td>سحر</td></tr>
+
+<tr><td>Gleam</td><td>بريق</td></tr>
+
+<tr><td>Gloom</td><td>كآبة</td></tr>
+
+<tr><td>Faint</td><td>باهت</td></tr>
+
+<tr><td>Glimpse</td><td>لمحة</td></tr>
+
+<tr><td>Whisper</td><td>همسة</td></tr>
+
+<tr><td>Hollow</td><td>أجوف</td></tr>
+
+<tr><td>Humble</td><td>متواضع</td></tr>
+
+<tr><td>Wander</td><td>يتجول</td></tr>
+
+<tr><td>Crave</td><td>يشتاق</td></tr>
+
+<tr><td>Dwell</td><td>يسكن</td></tr>
+
+<tr><td>Soothe</td><td>يهدئ</td></tr>
+
+<tr><td>Shiver</td><td>يرتجف</td></tr>
+
+<tr><td>Glisten</td><td>يتلألأ</td></tr>
+
+<tr><td>Thrive</td><td>يزدهر</td></tr>
+
+<tr><td>Bloom</td><td>يتفتح</td></tr>
+
+<tr><td>Fade</td><td>يبهت</td></tr>
+
+<tr><td>Swift</td><td>سريع</td></tr>
+
+<tr><td>Fierce</td><td>عنيف</td></tr>
+
+<tr><td>Bold</td><td>جريء</td></tr>
+
+<tr><td>Witty</td><td>ذكي</td></tr>
+
+<tr><td>Vast</td><td>شاسع</td></tr>
+
+<tr><td>Vain</td><td>متكبر</td></tr>
+
+<tr><td>Bleak</td><td>كئيب</td></tr>
+
+<tr><td>Brisk</td><td>نشِط</td></tr>
+
+<tr><td>Brave</td><td>شجاع</td></tr>
+
+<tr><td>Calm</td><td>هادئ</td></tr>
+
+<tr><td>Clever</td><td>ذكي</td></tr>
+
+<tr><td>Cozy</td><td>دافئ ومريح</td></tr>
+
+<tr><td>Crisp</td><td>مقرمش</td></tr>
+
+<tr><td>Dim</td><td>خافت</td></tr>
+
+<tr><td>Dull</td><td>ممل</td></tr>
+
+<tr><td>Fancy</td><td>فاخر</td></tr>
+
+<tr><td>Feeble</td><td>ضعيف</td></tr>
+
+<tr><td>Frail</td><td>هش</td></tr>
+
+<tr><td>Giant</td><td>عملاق</td></tr>
+
+<tr><td>Gloomy</td><td>كئيب</td></tr>
+
+<tr><td>Graceful</td><td>رشيق</td></tr>
+
+<tr><td>Harsh</td><td>قاسٍ</td></tr>
+
+<tr><td>Hasty</td><td>متسرع</td></tr>
+
+<tr><td>Hearty</td><td>ودود</td></tr>
+
+<tr><td>Jolly</td><td>مرح</td></tr>
+
+<tr><td>Kindred</td><td>ذو قرابة</td></tr>
+
+<tr><td>Lively</td><td>مفعم بالحيوية</td></tr>
+
+<tr><td>Lofty</td><td>سامٍ</td></tr>
+
+<tr><td>Mellow</td><td>ناعم</td></tr>
+
+<tr><td>Mild</td><td>لطيف</td></tr>
+
+<tr><td>Neat</td><td>مرتب</td></tr>
+
+<tr><td>Noble</td><td>نبيل</td></tr>
+
+<tr><td>Odd</td><td>غريب</td></tr>
+
+<tr><td>Pure</td><td>نقي</td></tr>
+
+<tr><td>Rough</td><td>خشن</td></tr>
+
+<tr><td>Slick</td><td>ناعم</td></tr>
+
+<tr><td>Sturdy</td><td>متين</td></tr>
+
+<tr><td>Tender</td><td>رقيق</td></tr>
+
+<tr><td>Timid</td><td>خجول</td></tr>
+
+<tr><td>Tough</td><td>قوي</td></tr>
+
+<tr><td>Tricky</td><td>ماكر</td></tr>
+
+<tr><td>Vivid</td><td>حيّ</td></tr>
+
+<tr><td>Wary</td><td>حذر</td></tr>
+
+<tr><td>Weary</td><td>متعب</td></tr>
+
+<tr><td>Wicked</td><td>شرير</td></tr>
+
+<tr><td>Yearn</td><td>يتوق</td></tr>
+
+<tr><td>Zeal</td><td>حماسة</td></tr>
+
+<tr><td>Zenith</td><td>ذروة</td></tr>
+
+<tr><td>Vibe</td><td>إحساس</td></tr>
+
+<tr><td>Fate</td><td>قدر</td></tr>
+
+<tr><td>Bliss</td><td>سعادة</td></tr>
+
+<tr><td>Mercy</td><td>رحمة</td></tr>
+
+<tr><td>Faith</td><td>إيمان</td></tr>
+
+<tr><td>Unity</td><td>وحدة</td></tr>
+
+<tr><td>Echo</td><td>صدى</td></tr>
+
+<tr><td>Flame</td><td>لهب</td></tr>
+
+<tr><td>Frost</td><td>صقيع</td></tr>
+
+<tr><td>Mist</td><td>ضباب</td></tr>
+
+<tr><td>Pulse</td><td>نبض</td></tr>
+
+<tr><td>Quest</td><td>بحث</td></tr>
+
+<tr><td>Realm</td><td>مملكة</td></tr>
+
+<tr><td>Spark</td><td>شرارة</td></tr>
+
+<tr><td>Storm</td><td>عاصفة</td></tr>
+
+<tr><td>Twist</td><td>التواء</td></tr>
+
+<tr><td>Whirl</td><td>دوامة</td></tr>
+
+<tr><td>Yield</td><td>ينتج</td></tr>
+
+<tr><td>Blaze</td><td>لهيب</td></tr>
+
+<tr><td>Glow</td><td>توهج</td></tr>
+
+<tr><td>Grit</td><td>شجاعة</td></tr>
+
+<tr><td>Haze</td><td>ضباب خفيف</td></tr>
+
+<tr><td>Lust</td><td>شهوة</td></tr>
+
+<tr><td>Oath</td><td>قسم</td></tr>
+
+<tr><td>Poise</td><td>اتزان</td></tr>
+
+<tr><td>Pride</td><td>فخر</td></tr>
+
+<tr><td>Rage</td><td>غضب</td></tr>
+
+<tr><td>Ruin</td><td>خراب</td></tr>
+
+<tr><td>Sake</td><td>مصلحة</td></tr>
+
+<tr><td>Vale</td><td>وادي</td></tr>
+
+<tr><td>Woe</td><td>حزن</td></tr>
+
+<tr><td>Ample</td><td>وافر</td></tr>
+
+<tr><td>Astute</td><td>فطن</td></tr>
+
+<tr><td>Briskly</td><td>بنشاط</td></tr>
+
+<tr><td>Chronic</td><td>مزمن</td></tr>
+
+<tr><td>Clarity</td><td>وضوح</td></tr>
+
+<tr><td>Comely</td><td>جميل</td></tr>
+
+<tr><td>Deft</td><td>ماهر</td></tr>
+
+<tr><td>Devout</td><td>تقي</td></tr>
+
+<tr><td>Dainty</td><td>رقيق</td></tr>
+
+<tr><td>Earnest</td><td>جاد</td></tr>
+
+<tr><td>Elate</td><td>يبتهج</td></tr>
+
+<tr><td>Elude</td><td>يتفادى</td></tr>
+
+<tr><td>Fickle</td><td>متقلب</td></tr>
+
+<tr><td>Fleet</td><td>سريع</td></tr>
+
+<tr><td>Fluent</td><td>طليق</td></tr>
+
+<tr><td>Foresight</td><td>بُعد نظر</td></tr>
+
+<tr><td>Fragile</td><td>هش</td></tr>
+
+<tr><td>Gallant</td><td>شجاع</td></tr>
+
+<tr><td>Genial</td><td>ودود</td></tr>
+
+<tr><td>Giddy</td><td>دوار</td></tr>
+
+<tr><td>Hasten</td><td>يسرع</td></tr>
+
+<tr><td>Heed</td><td>ينتبه</td></tr>
+
+<tr><td>Hoist</td><td>يرفع</td></tr>
+
+<tr><td>Idle</td><td>كسول</td></tr>
+
+<tr><td>Immerse</td><td>يغمر</td></tr>
+
+<tr><td>Inert</td><td>خامل</td></tr>
+
+<tr><td>Innate</td><td>فطري</td></tr>
+
+<tr><td>Jargon</td><td>مصطلحات</td></tr>
+
+<tr><td>Jovial</td><td>مرح</td></tr>
+
+<tr><td>Keen</td><td>حاد</td></tr>
+
+<tr><td>Lapse</td><td>زلة</td></tr>
+
+<tr><td>Lean</td><td>نحيف</td></tr>
+
+<tr><td>Linger</td><td>يبقى طويلاً</td></tr>
+
+<tr><td>Lure</td><td>يغري</td></tr>
+
+<tr><td>Meek</td><td>وديع</td></tr>
+
+<tr><td>Moist</td><td>رطب</td></tr>
+
+<tr><td>Mute</td><td>صامت</td></tr>
+
+<tr><td>Needy</td><td>محتاج</td></tr>
+
+<tr><td>Nimble</td><td>رشيق</td></tr>
+
+<tr><td>Omit</td><td>يحذف</td></tr>
+
+<tr><td>Ordeal</td><td>محنة</td></tr>
+
+<tr><td>Outwit</td><td>يتفوق بالذكاء</td></tr>
+
+<tr><td>Peculiar</td><td>غريب</td></tr>
+
+<tr><td>Peril</td><td>خطر</td></tr>
+
+<tr><td>Pious</td><td>تقي</td></tr>
+
+<tr><td>Placid</td><td>هادئ</td></tr>
+
+<tr><td>Pledge</td><td>تعهد</td></tr>
+
+<tr><td>Plight</td><td>مأزق</td></tr>
+
+<tr><td>Prompt</td><td>سريع</td></tr>
+
+<tr><td>Prone</td><td>عرضة لـ</td></tr>
+
+<tr><td>Prudent</td><td>حكيم</td></tr>
+
+<tr><td>Quaint</td><td>قديم الطراز</td></tr>
+
+<tr><td>Queer</td><td>غريب</td></tr>
+
+<tr><td>Quiver</td><td>يرتجف</td></tr>
+
+<tr><td>Radiant</td><td>مشع</td></tr>
+
+<tr><td>Rancid</td><td>زنخ</td></tr>
+
+<tr><td>Reckon</td><td>يحسب</td></tr>
+
+<tr><td>Refrain</td><td>يمتنع</td></tr>
+
+<tr><td>Relish</td><td>يستمتع بـ</td></tr>
+
+<tr><td>Remedy</td><td>علاج</td></tr>
+
+<tr><td>Riddle</td><td>لغز</td></tr>
+
+<tr><td>Rustic</td><td>ريفي</td></tr>
+
+<tr><td>Sacred</td><td>مقدس</td></tr>
+
+<tr><td>Sane</td><td>عاقل</td></tr>
+
+<tr><td>Scorn</td><td>احتقار</td></tr>
+
+<tr><td>Shrewd</td><td>ذكي</td></tr>
+
+<tr><td>Slack</td><td>رخو</td></tr>
+
+<tr><td>Slate</td><td>لوح</td></tr>
+
+<tr><td>Sly</td><td>ماكر</td></tr>
+
+<tr><td>Smug</td><td>متعجرف</td></tr>
+
+<tr><td>Sober</td><td>رصين</td></tr>
+
+<tr><td>Spry</td><td>نشِط</td></tr>
+
+<tr><td>Stark</td><td>صارم</td></tr>
+
+<tr><td>Steep</td><td>حاد</td></tr>
+
+<tr><td>Stout</td><td>سمين</td></tr>
+
+<tr><td>Stray</td><td>تائه</td></tr>
+
+<tr><td>Subtle</td><td>دقيق</td></tr>
+
+<tr><td>Surly</td><td>عبوس</td></tr>
+
+<tr><td>Tame</td><td>أليف</td></tr>
+
+<tr><td>Taut</td><td>مشَدود</td></tr>
+
+<tr><td>Tinge</td><td>لمسة</td></tr>
+
+<tr><td>Torpid</td><td>خامل</td></tr>
+
+<tr><td>Tread</td><td>يدوس</td></tr>
+
+<tr><td>Truce</td><td>هدنة</td></tr>
+
+<tr><td>Vague</td><td>غامض</td></tr>
+
+<tr><td>Vanish</td><td>يختفي</td></tr>
+
+<tr><td>Vow</td><td>نذر</td></tr>
+
+<tr><td>Wane</td><td>يتضاءل</td></tr>
+
+<tr><td>Wary</td><td>حذر</td></tr>
+
+<tr><td>Witty</td><td>بارع</td></tr>
+
+<tr><td>Wrest</td><td>ينتزع</td></tr>
+
+<tr><td>Yearning</td><td>شوق</td></tr>
+
+<tr><td>Yielding</td><td>لين</td></tr>
+
+<tr><td>Zealous</td><td>غيور</td></tr>
+
+<tr><td>Zest</td><td>نشاط</td></tr>
+
+<tr><td>Zen</td><td>صفاء ذهني</td></tr>
+
+<tr><td>Blunt</td><td>صريح</td></tr>
+
+<tr><td>Brim</td><td>حافة</td></tr>
+
+<tr><td>Crude</td><td>خام</td></tr>
+
+<tr><td>Deem</td><td>يعتبر</td></tr>
+
+<tr><td>Dread</td><td>خوف</td></tr>
+
+<tr><td>Fend</td><td>يدافع</td></tr>
+
+<tr><td>Flare</td><td>وميض</td></tr>
+
+<tr><td>Hurl</td><td>يقذف</td></tr>
+
+<tr><td>Eat</td><td>يأكل</td></tr>
+
+<tr><td>Drink</td><td>يشرب</td></tr>
+
+<tr><td>Sleep</td><td>ينام</td></tr>
+
+<tr><td>Wake</td><td>يستيقظ</td></tr>
+
+<tr><td>Work</td><td>يعمل</td></tr>
+
+<tr><td>Play</td><td>يلعب</td></tr>
+
+<tr><td>Read</td><td>يقرأ</td></tr>
+
+<tr><td>Write</td><td>يكتب</td></tr>
+
+<tr><td>Speak</td><td>يتحدث</td></tr>
+
+<tr><td>Listen</td><td>يستمع</td></tr>
+
+<tr><td>Walk</td><td>يمشي</td></tr>
+
+<tr><td>Run</td><td>يجري</td></tr>
+
+<tr><td>Sit</td><td>يجلس</td></tr>
+
+<tr><td>Stand</td><td>يقف</td></tr>
+
+<tr><td>Open</td><td>يفتح</td></tr>
+
+<tr><td>Close</td><td>يغلق</td></tr>
+
+<tr><td>Cook</td><td>يطبخ</td></tr>
+
+<tr><td>Clean</td><td>ينظف</td></tr>
+
+<tr><td>Wash</td><td>يغسل</td></tr>
+
+<tr><td>Buy</td><td>يشتري</td></tr>
+
+<tr><td>Sell</td><td>يبيع</td></tr>
+
+<tr><td>Go</td><td>يذهب</td></tr>
+
+<tr><td>Come</td><td>يأتي</td></tr>
+
+<tr><td>Leave</td><td>يغادر</td></tr>
+
+<tr><td>Stay</td><td>يبقى</td></tr>
+
+<tr><td>See</td><td>يرى</td></tr>
+
+<tr><td>Look</td><td>ينظر</td></tr>
+
+<tr><td>Watch</td><td>يشاهد</td></tr>
+
+<tr><td>Hear</td><td>يسمع</td></tr>
+
+<tr><td>Feel</td><td>يشعر</td></tr>
+
+<tr><td>Love</td><td>يحب</td></tr>
+
+<tr><td>Like</td><td>يعجب</td></tr>
+
+<tr><td>Hate</td><td>يكره</td></tr>
+
+<tr><td>Need</td><td>يحتاج</td></tr>
+
+<tr><td>Want</td><td>يريد</td></tr>
+
+<tr><td>Help</td><td>يساعد</td></tr>
+
+<tr><td>Find</td><td>يجد</td></tr>
+
+<tr><td>Lose</td><td>يفقد</td></tr>
+
+<tr><td>Give</td><td>يعطي</td></tr>
+
+<tr><td>Take</td><td>يأخذ</td></tr>
+
+<tr><td>Bring</td><td>يجلب</td></tr>
+
+<tr><td>Make</td><td>يصنع</td></tr>
+
+<tr><td>Build</td><td>يبني</td></tr>
+
+<tr><td>Use</td><td>يستخدم</td></tr>
+
+<tr><td>Try</td><td>يحاول</td></tr>
+
+<tr><td>Start</td><td>يبدأ</td></tr>
+
+<tr><td>Finish</td><td>ينهي</td></tr>
+
+<tr><td>Wait</td><td>ينتظر</td></tr>
+
+<tr><td>Meet</td><td>يقابل</td></tr>
+
+<tr><td>Talk</td><td>يتحدث</td></tr>
+
+<tr><td>Call</td><td>يتصل</td></tr>
+
+<tr><td>Answer</td><td>يجيب</td></tr>
+
+<tr><td>Ask</td><td>يسأل</td></tr>
+
+<tr><td>Learn</td><td>يتعلم</td></tr>
+
+<tr><td>Teach</td><td>يُعلِّم</td></tr>
+
+<tr><td>Study</td><td>يدرس</td></tr>
+
+<tr><td>Drive</td><td>يقود</td></tr>
+
+<tr><td>Ride</td><td>يركب</td></tr>
+
+<tr><td>Travel</td><td>يسافر</td></tr>
+
+<tr><td>Arrive</td><td>يصل</td></tr>
+
+<tr><td>Return</td><td>يعود</td></tr>
+
+<tr><td>Carry</td><td>يحمل</td></tr>
+
+<tr><td>Drop</td><td>يسقط</td></tr>
+
+<tr><td>Push</td><td>يدفع</td></tr>
+
+<tr><td>Pull</td><td>يسحب</td></tr>
+
+<tr><td>Throw</td><td>يرمي</td></tr>
+
+<tr><td>Catch</td><td>يمسك</td></tr>
+
+<tr><td>Cut</td><td>يقطع</td></tr>
+
+<tr><td>Break</td><td>يكسر</td></tr>
+
+<tr><td>Fix</td><td>يُصلح</td></tr>
+
+<tr><td>Paint</td><td>يدهن</td></tr>
+
+<tr><td>Draw</td><td>يرسم</td></tr>
+
+<tr><td>Smile</td><td>يبتسم</td></tr>
+
+<tr><td>Laugh</td><td>يضحك</td></tr>
+
+<tr><td>Cry</td><td>يبكي</td></tr>
+
+<tr><td>Shout</td><td>يصرخ</td></tr>
+
+<tr><td>Wait</td><td>ينتظر</td></tr>
+
+<tr><td>Clean</td><td>ينظف</td></tr>
+
+<tr><td>Cook</td><td>يطبخ</td></tr>
+
+<tr><td>Shop</td><td>يتسوق</td></tr>
+
+<tr><td>Pay</td><td>يدفع</td></tr>
+
+<tr><td>Save</td><td>يحفظ / يوفر</td></tr>
+
+<tr><td>Spend</td><td>ينفق</td></tr>
+
+<tr><td>Work</td><td>يعمل</td></tr>
+
+<tr><td>Rest</td><td>يستريح</td></tr>
+
+<tr><td>Move</td><td>يتحرك</td></tr>
+
+<tr><td>Stop</td><td>يتوقف</td></tr>
+
+<tr><td>Stay</td><td>يبقى</td></tr>
+
+<tr><td>Live</td><td>يعيش</td></tr>
+
+<tr><td>Die</td><td>يموت</td></tr>
+
+<tr><td>Grow</td><td>ينمو</td></tr>
+
+<tr><td>Change</td><td>يتغير</td></tr>
+
+<tr><td>Open</td><td>يفتح</td></tr>
+
+<tr><td>Close</td><td>يغلق</td></tr>
+
+<tr><td>Begin</td><td>يبدأ</td></tr>
+
+<tr><td>End</td><td>ينتهي</td></tr>
+
+<tr><td>Enjoy</td><td>يستمتع</td></tr>
+
+<tr><td>Hope</td><td>يأمل</td></tr>
+
+<tr><td>Believe</td><td>يؤمن</td></tr>
+
+<tr><td>Remember</td><td>يتذكر</td></tr>
+
+<tr><td>Forget</td><td>ينسى</td></tr>
+
+<tr><td>Win</td><td>يفوز</td></tr>
+
+<tr><td>Lose</td><td>يخسر</td></tr>
+
+<tr><td>Show</td><td>يُظهر</td></tr>
+
+<tr><td>Hide</td><td>يخفي</td></tr>
+
+<tr><td>Clean</td><td>ينظف</td></tr>
+
+<tr><td>Turn</td><td>يدور / يتحول</td></tr>
+
+<tr><td>Jump</td><td>يقفز</td></tr>
+
+<tr><td>Computer</td><td>حاسوب</td></tr>
+
+<tr><td>Laptop</td><td>حاسوب محمول</td></tr>
+
+<tr><td>Keyboard</td><td>لوحة مفاتيح</td></tr>
+
+<tr><td>Mouse</td><td>فأرة</td></tr>
+
+<tr><td>Monitor</td><td>شاشة</td></tr>
+
+<tr><td>Printer</td><td>طابعة</td></tr>
+
+<tr><td>Scanner</td><td>ماسح ضوئي</td></tr>
+
+<tr><td>Smartphone</td><td>هاتف ذكي</td></tr>
+
+<tr><td>Tablet</td><td>جهاز لوحي</td></tr>
+
+<tr><td>Charger</td><td>شاحن</td></tr>
+
+<tr><td>Battery</td><td>بطارية</td></tr>
+
+<tr><td>USB</td><td>يو إس بي</td></tr>
+
+<tr><td>Cable</td><td>كابل</td></tr>
+
+<tr><td>Wi-Fi</td><td>واي فاي</td></tr>
+
+<tr><td>Internet</td><td>إنترنت</td></tr>
+
+<tr><td>Website</td><td>موقع إلكتروني</td></tr>
+
+<tr><td>Browser</td><td>متصفح</td></tr>
+
+<tr><td>Search</td><td>بحث</td></tr>
+
+<tr><td>Link</td><td>رابط</td></tr>
+
+<tr><td>Download</td><td>تحميل</td></tr>
+
+<tr><td>Upload</td><td>رفع</td></tr>
+
+<tr><td>File</td><td>ملف</td></tr>
+
+<tr><td>Folder</td><td>مجلد</td></tr>
+
+<tr><td>Data</td><td>بيانات</td></tr>
+
+<tr><td>Backup</td><td>نسخة احتياطية</td></tr>
+
+<tr><td>System</td><td>نظام</td></tr>
+
+<tr><td>Software</td><td>برمجيات</td></tr>
+
+<tr><td>Hardware</td><td>أجهزة</td></tr>
+
+<tr><td>Program</td><td>برنامج</td></tr>
+
+<tr><td>Application</td><td>تطبيق</td></tr>
+
+<tr><td>Update</td><td>تحديث</td></tr>
+
+<tr><td>Install</td><td>تثبيت</td></tr>
+
+<tr><td>Uninstall</td><td>إزالة التثبيت</td></tr>
+
+<tr><td>Login</td><td>تسجيل الدخول</td></tr>
+
+<tr><td>Logout</td><td>تسجيل الخروج</td></tr>
+
+<tr><td>Password</td><td>كلمة المرور</td></tr>
+
+<tr><td>Username</td><td>اسم المستخدم</td></tr>
+
+<tr><td>Account</td><td>حساب</td></tr>
+
+<tr><td>Security</td><td>أمان</td></tr>
+
+<tr><td>Privacy</td><td>خصوصية</td></tr>
+
+<tr><td>Network</td><td>شبكة</td></tr>
+
+<tr><td>Server</td><td>خادم</td></tr>
+
+<tr><td>Cloud</td><td>سحابة</td></tr>
+
+<tr><td>Storage</td><td>تخزين</td></tr>
+
+<tr><td>Drive</td><td>قرص</td></tr>
+
+<tr><td>Memory</td><td>ذاكرة</td></tr>
+
+<tr><td>Processor</td><td>معالج</td></tr>
+
+<tr><td>Chip</td><td>شريحة</td></tr>
+
+<tr><td>Device</td><td>جهاز</td></tr>
+
+<tr><td>Camera</td><td>كاميرا</td></tr>
+
+<tr><td>Video</td><td>فيديو</td></tr>
+
+<tr><td>Audio</td><td>صوت</td></tr>
+
+<tr><td>Speaker</td><td>مكبر صوت</td></tr>
+
+<tr><td>Headphones</td><td>سماعات</td></tr>
+
+<tr><td>Microphone</td><td>ميكروفون</td></tr>
+
+<tr><td>Bluetooth</td><td>بلوتوث</td></tr>
+
+<tr><td>App</td><td>تطبيق</td></tr>
+
+<tr><td>Icon</td><td>أيقونة</td></tr>
+
+<tr><td>Desktop</td><td>سطح المكتب</td></tr>
+
+<tr><td>Screen</td><td>شاشة</td></tr>
+
+<tr><td>Resolution</td><td>دقة</td></tr>
+
+<tr><td>Cursor</td><td>مؤشر</td></tr>
+
+<tr><td>Click</td><td>نقرة</td></tr>
+
+<tr><td>Tap</td><td>لمسة</td></tr>
+
+<tr><td>Scroll</td><td>تمرير</td></tr>
+
+<tr><td>Copy</td><td>نسخ</td></tr>
+
+<tr><td>Paste</td><td>لصق</td></tr>
+
+<tr><td>Cut</td><td>قص</td></tr>
+
+<tr><td>Delete</td><td>حذف</td></tr>
+
+<tr><td>Save</td><td>حفظ</td></tr>
+
+<tr><td>Open</td><td>فتح</td></tr>
+
+<tr><td>Close</td><td>إغلاق</td></tr>
+
+<tr><td>Edit</td><td>تحرير</td></tr>
+
+<tr><td>Share</td><td>مشاركة</td></tr>
+
+<tr><td>Message</td><td>رسالة</td></tr>
+
+<tr><td>Email</td><td>بريد إلكتروني</td></tr>
+
+<tr><td>Chat</td><td>دردشة</td></tr>
+
+<tr><td>Call</td><td>مكالمة</td></tr>
+
+<tr><td>Video Call</td><td>مكالمة فيديو</td></tr>
+
+<tr><td>Download Link</td><td>رابط تحميل</td></tr>
+
+<tr><td>Notification</td><td>إشعار</td></tr>
+
+<tr><td>Settings</td><td>إعدادات</td></tr>
+
+<tr><td>Control</td><td>تحكم</td></tr>
+
+<tr><td>Option</td><td>خيار</td></tr>
+
+<tr><td>Command</td><td>أمر</td></tr>
+
+<tr><td>Function</td><td>وظيفة</td></tr>
+
+<tr><td>Shortcut</td><td>اختصار</td></tr>
+
+<tr><td>Error</td><td>خطأ</td></tr>
+
+<tr><td    border-collapse: collapse;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -540,3 +1513,4 @@
 </body>
   </html>
   
+
